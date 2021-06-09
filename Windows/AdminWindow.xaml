@@ -1,0 +1,105 @@
+﻿<Window x:Class="MordochkaProg.AdminWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MordochkaProg"
+        mc:Ignorable="d"
+        Icon="../Resources/beauty_logo.ico"
+        Title="AdminWindow" Height="450" Width="800"
+        MinHeight="350"
+        MinWidth="600">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.25*" MinHeight="75"/>
+            <RowDefinition Height="0.15*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="0.2*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Horizontal" >
+            <Image Source="../Resources/beauty_logo.png"/>
+            <TextBlock Text="Салона красоты &quot;Мордочка&quot;"
+                       FontSize="20"
+                       VerticalAlignment="Center"
+                       Margin="10 0"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Center">
+            <Label Content="Количество записей на странице:"/>
+            <ComboBox x:Name="RecordCountComboBox" SelectionChanged="RecordCountComboBox_SelectionChanged"/>
+            <Label Content="Пол:"/>
+            <ComboBox x:Name="GenderComboBox" SelectionChanged="GenderComboBox_SelectionChanged"/>
+            <Label Content="Поиск:"/>
+            <TextBox x:Name="SearchTextBox" 
+                     TextChanged="SearchTextBox_TextChanged"
+                     Width="150"/>
+            <ComboBox x:Name="SortingComboBox" SelectionChanged="SortingComboBox_SelectionChanged"/>
+        </StackPanel>
+
+        <ListView Grid.Row="2" x:Name="DataListView">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="ID" 
+                                    DisplayMemberBinding="{Binding ID}"/>
+                    <GridViewColumn Header="Пол" 
+                                    DisplayMemberBinding="{Binding Gender.Name}"/>
+                    <GridViewColumn Header="Имя" 
+                                    DisplayMemberBinding="{Binding FirstName}"/>
+                    <GridViewColumn Header="Фамилия" 
+                                    DisplayMemberBinding="{Binding LastName}"/>
+                    <GridViewColumn Header="Отчество" 
+                                    DisplayMemberBinding="{Binding Patronymic}"/>
+                    <GridViewColumn Header="Дата рождения" 
+                                    DisplayMemberBinding="{Binding Birthday,StringFormat=dd-MM-yyy}"/>
+                    <GridViewColumn Header="Телефон" 
+                                    DisplayMemberBinding="{Binding Phone}"/>
+                    <GridViewColumn Header="Email" 
+                                    DisplayMemberBinding="{Binding Email}"/>
+                    <GridViewColumn Header="Дата добавления" 
+                                    DisplayMemberBinding="{Binding RegistrationDate, 
+                        StringFormat=dd-MM-yyy}"/>
+                    <GridViewColumn Header="Дата последнего посещения" 
+                                    DisplayMemberBinding="{Binding LastVisit,
+                        StringFormat=dd-MM-yyy hh:mm:ss}"/>
+                    <GridViewColumn Header="Количество посещений" 
+                                    DisplayMemberBinding="{Binding VisitsCount}"/>
+                    <GridViewColumn Header="Теги" Width="100">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <ItemsControl ItemsSource="{Binding TagsView}">
+                                    <ItemsControl.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <WrapPanel/>
+                                        </ItemsPanelTemplate>
+                                    </ItemsControl.ItemsPanel>
+                                </ItemsControl>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+        <StackPanel Grid.Row="3" 
+                    Orientation="Horizontal" 
+                    VerticalAlignment="Center">
+            <Label Name="CountRecordsLabel"/>
+            <Button Content="предыдущая" Click="PrevButtonClick"/>
+            <Button Content="следующая" Click="NextButtonClick"/>
+            <CheckBox x:Name="BirthCheckBox"
+                      Content="день рождения будет в текущем месяце" 
+                      Checked="CheckChanged" 
+                      Unchecked="CheckChanged"/>
+            <Button Content="Удалить"
+                    Click="DelButtonClick"/>
+            <Button Content="Добавить"
+                    Click="AddButtonClick"/>
+            <Button Content="Изменить"
+                    Click="EditButtonClick"/>
+            <Button Content="Посещения"
+                    Click="VisitsButtonClick"/>
+        </StackPanel>
+    </Grid>
+</Window>

@@ -1,0 +1,188 @@
+﻿<Window x:Class="MordochkaProg.AddEditWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MordochkaProg"
+        mc:Ignorable="d"
+        Title="AddEditWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.2*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="0.15*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Horizontal">
+            <Image Source="../Resources/beauty_logo.png"/>
+            <TextBlock Text="Салона красоты &quot;Мордочка&quot;"
+                       FontSize="20"
+                       VerticalAlignment="Center"
+                       Margin="10 0"/>
+        </StackPanel>
+        
+        <Grid Grid.Row="1" HorizontalAlignment="Center" x:Name="ClientInfoGrid">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <Label Grid.Row="0" 
+                   Content="ID" 
+                   HorizontalContentAlignment="Right" 
+                   VerticalContentAlignment="Center"
+                   x:Name="IDLabel"/>
+            <TextBox Grid.Row="0" 
+                     Grid.Column="1" 
+                     Width="200" 
+                     VerticalAlignment="Center" 
+                     HorizontalAlignment="Left"
+                     Text="{Binding ID}"
+                     IsReadOnly="True"
+                     x:Name="IDTextBox"/>
+
+            <Label Grid.Row="1" 
+                   Content="Фамилия" 
+                   HorizontalContentAlignment="Right" 
+                   VerticalContentAlignment="Center"
+                   />
+            <TextBox Grid.Row="1" 
+                     Grid.Column="1" 
+                     Width="200" 
+                     VerticalAlignment="Center" 
+                     HorizontalAlignment="Left"
+                     Text="{Binding LastName}"
+                     x:Name="LastNameTextBox"/>
+
+            <Label Grid.Row="2" 
+                   Content="Имя" 
+                   HorizontalContentAlignment="Right" 
+                   VerticalContentAlignment="Center"/>
+            <TextBox Grid.Row="2" 
+                     Grid.Column="1" 
+                     Width="200" 
+                     VerticalAlignment="Center" 
+                     HorizontalAlignment="Left"
+                     Text="{Binding FirstName}"
+                     x:Name="FirstNameTextBox"
+                     />
+
+            <Label Grid.Row="3" 
+                   Content="Отчество" 
+                   HorizontalContentAlignment="Right" 
+                   VerticalContentAlignment="Center"/>
+            <TextBox Grid.Row="3" 
+                     Grid.Column="1" 
+                     Width="200" 
+                     VerticalAlignment="Center" 
+                     HorizontalAlignment="Left"
+                     Text="{Binding Patronymic}"
+                     x:Name="PatronymicTextBox"
+                     />
+
+            <Label Grid.Row="4" 
+                   Content="Email" 
+                   HorizontalContentAlignment="Right" 
+                   VerticalContentAlignment="Center"/>
+            <TextBox Grid.Row="4" 
+                     Grid.Column="1" 
+                     Width="200" 
+                     VerticalAlignment="Center" 
+                     HorizontalAlignment="Left"
+                     Text="{Binding Email}"
+                     x:Name="EmailTextBox"
+                     />
+
+            <Label Grid.Row="5" 
+                   Content="Телефон" 
+                   HorizontalContentAlignment="Right" 
+                   VerticalContentAlignment="Center"/>
+            <TextBox Grid.Row="5" 
+                     Grid.Column="1" 
+                     Width="200" 
+                     VerticalAlignment="Center" 
+                     HorizontalAlignment="Left"
+                     Text="{Binding Phone}"
+                     x:Name="PhoneTextBox"/>
+
+            <Label Grid.Row="6" 
+                   Content="Дата рождения" 
+                   HorizontalContentAlignment="Right" 
+                   VerticalContentAlignment="Center"/>
+            <DatePicker Grid.Row="6" 
+                     Grid.Column="1" 
+                     Width="200" 
+                     VerticalAlignment="Center" 
+                     HorizontalAlignment="Left"
+                     SelectedDate="{Binding Birthday}"
+                     x:Name="BirthdayDatePicker"/>
+
+            <Label Grid.Row="7" 
+                   Content="Пол" 
+                   HorizontalContentAlignment="Right" 
+                   VerticalContentAlignment="Center"/>
+            <ComboBox Grid.Row="7" 
+                     Grid.Column="1" 
+                     Width="200" 
+                     VerticalAlignment="Center" 
+                     HorizontalAlignment="Left"
+                     Name="GenderComboBox"
+                     SelectedItem="{Binding Gender}"/>
+
+            <StackPanel Grid.Row="0" Grid.Column="2" Width="200" Grid.RowSpan="8">
+                <Image Source="{Binding GetImgSrc}" Width="100" Name="ClientImage"/>
+                <Button Content="Изменить" Click="EditImgButtonClick"/>
+            </StackPanel>
+
+            <StackPanel Grid.Column="3" Grid.RowSpan="8">
+                <ListView x:Name="NotUseTagsListView"
+                          Width="200">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Доступные теги">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Title}" Background="{Binding HexColor}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+                <Button Content="Добавить" Click="AddTagButtonClick"/>
+                <Button Content="Удалить" Click="DelTagButtonClick"/>
+                <ListView x:Name="UseTagsListView"
+                          Width="200">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Тега пользователя">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Title}" Background="{Binding HexColor}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </StackPanel>
+        </Grid>
+
+        <StackPanel Grid.Row="2" VerticalAlignment="Center" Orientation="Horizontal">
+            <Button Content="Сохранить" Click="SaveButtonClick"/>
+        </StackPanel>
+    </Grid>
+</Window>
